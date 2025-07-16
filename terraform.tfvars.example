@@ -1,0 +1,282 @@
+# /**
+ * =============================================================================
+ * ARCHIVO DE CONFIGURACIÓN DE VARIABLES - ECOMMERCE DATA PLATFORM
+ * =============================================================================
+ * 
+ * Autor: Ruben Martin
+ * Fecha: 2025-07-16
+ * Versión: 2.0.0
+ * 
+ * Descripción: Archivo de ejemplo para configuración de variables del proyecto.
+ * Copia este archivo como terraform.tfvars y ajusta los valores según tu entorno.
+ * 
+ * IMPORTANTE: No incluyas este archivo en git si contiene información sensible.
+ * Usa terraform.tfvars para configuración local y variables de entorno para CI/CD.
+ * 
+ * =============================================================================
+ */
+
+# =============================================================================
+# CONFIGURACIÓN GENERAL DEL PROYECTO
+# =============================================================================
+
+# Nombre del proyecto (se usará como prefijo en todos los recursos)
+project_name = "ecommerce-data-platform"
+
+# Entorno de despliegue (dev, staging, prod)
+# CAMBIAR según el entorno donde se despliega
+environment = "dev"
+
+# Región AWS para el despliegue
+# us-east-1 recomendada para mejor disponibilidad de servicios
+aws_region = "us-east-1"
+
+# Centro de costos para tracking financiero
+cost_center = "DataEngineering"
+
+# =============================================================================
+# CONFIGURACIÓN DE NETWORKING
+# =============================================================================
+
+# CIDR de la VPC (permite hasta 65,536 IPs)
+vpc_cidr = "10.0.0.0/16"
+
+# Habilitar VPC endpoints (recomendado para seguridad)
+enable_vpc_endpoints = true
+
+# Habilitar NAT Gateway (necesario para acceso a internet desde subnets privadas)
+enable_nat_gateway = true
+
+# Habilitar Flow Logs para análisis de tráfico
+enable_flow_logs = true
+
+# Retención de Flow Logs en días
+flow_logs_retention = 14
+
+# =============================================================================
+# CONFIGURACIÓN DE KINESIS DATA STREAMS
+# =============================================================================
+
+# Nombre del stream (se añadirá prefijo automáticamente)
+kinesis_stream_name = "ecommerce-events"
+
+# Número de shards (determina el throughput)
+# Para dev: 1-2 shards, para prod: 4+ shards
+kinesis_shard_count = 2
+
+# Período de retención en horas (24-168)
+kinesis_retention_period = 24
+
+# Tipo de cifrado (KMS recomendado)
+kinesis_encryption_type = "KMS"
+
+# =============================================================================
+# CONFIGURACIÓN DE S3
+# =============================================================================
+
+# Nombre base del bucket (se añadirá sufijo aleatorio)
+s3_bucket_name = "ecommerce-data-lake"
+
+# Habilitar versionado (recomendado para protección de datos)
+s3_enable_versioning = true
+
+# Habilitar Transfer Acceleration (útil para uploads grandes)
+s3_enable_acceleration = false
+
+# Clase de almacenamiento por defecto
+s3_storage_class = "STANDARD"
+
+# Habilitar políticas de lifecycle para optimización de costos
+s3_lifecycle_enabled = true
+
+# =============================================================================
+# CONFIGURACIÓN DE REDSHIFT
+# =============================================================================
+
+# Identificador del cluster (se añadirá prefijo automáticamente)
+redshift_cluster_identifier = "ecommerce-dw"
+
+# Tipo de nodo según entorno:
+# dev/staging: dc2.large
+# prod: dc2.8xlarge o ra3.4xlarge
+redshift_node_type = "dc2.large"
+
+# Tipo de cluster
+# single-node para dev/staging, multi-node para prod
+redshift_cluster_type = "single-node"
+
+# Número de nodos (solo para multi-node)
+redshift_number_of_nodes = 1
+
+# Credenciales del usuario maestro
+redshift_master_username = "admin"
+# IMPORTANTE: Cambiar esta contraseña por una segura
+# Mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y símbolos
+redshift_master_password = "TempPassword123!"
+
+# Nombre de la base de datos inicial
+redshift_database_name = "ecommerce"
+
+# Puerto para conexiones
+redshift_port = 5439
+
+# Período de retención de backups automáticos
+redshift_backup_retention_period = 7
+
+# Ventana de mantenimiento (formato: ddd:hh24:mi-ddd:hh24:mi)
+redshift_preferred_maintenance_window = "sun:05:00-sun:06:00"
+
+# Habilitar cifrado (siempre recomendado)
+redshift_encrypted = true
+
+# Acceso público (NUNCA en producción)
+redshift_publicly_accessible = false
+
+# =============================================================================
+# CONFIGURACIÓN DE KINESIS FIREHOSE
+# =============================================================================
+
+# Tamaño del buffer en MB (1-5)
+firehose_buffer_size = 5
+
+# Intervalo del buffer en segundos (60-900)
+firehose_buffer_interval = 300
+
+# Tipo de compresión
+firehose_compression = "GZIP"
+
+# =============================================================================
+# CONFIGURACIÓN DE MONITOREO Y ALERTAS
+# =============================================================================
+
+# Email para notificaciones (OBLIGATORIO)
+notification_email = "ruben.martin@tuempresa.com"
+
+# Habilitar monitoreo detallado (puede incrementar costos)
+enable_detailed_monitoring = false
+
+# Retención de logs de CloudWatch
+cloudwatch_log_retention_days = 30
+
+# Umbrales para alarmas (porcentajes)
+alarm_cpu_threshold = 80
+alarm_memory_threshold = 85
+alarm_disk_threshold = 90
+
+# =============================================================================
+# CONFIGURACIÓN DE SEGURIDAD
+# =============================================================================
+
+# Habilitar cifrado en todos los servicios
+enable_encryption = true
+
+# Días de espera antes de eliminar claves KMS
+kms_key_deletion_window = 7
+
+# Habilitar CloudTrail para auditoría
+enable_cloudtrail = true
+
+# Forzar conexiones SSL/TLS
+force_ssl = true
+
+# Bloques CIDR adicionales permitidos (para casos especiales)
+# Dejar vacío para máxima seguridad
+allowed_cidr_blocks = []
+
+# =============================================================================
+# CONFIGURACIÓN ESPECÍFICA POR ENTORNO
+# =============================================================================
+
+# Configuración automática por entorno
+# No modificar a menos que tengas requisitos específicos
+environment_config = {
+  dev = {
+    kinesis_shards   = 1
+    redshift_nodes   = 1
+    backup_retention = 3
+    monitoring_level = "basic"
+  }
+  staging = {
+    kinesis_shards   = 2
+    redshift_nodes   = 1
+    backup_retention = 7
+    monitoring_level = "enhanced"
+  }
+  prod = {
+    kinesis_shards   = 4
+    redshift_nodes   = 2
+    backup_retention = 30
+    monitoring_level = "detailed"
+  }
+}
+
+# =============================================================================
+# TAGS ADICIONALES
+# =============================================================================
+
+# Tags adicionales para todos los recursos
+additional_tags = {
+  Department = "DataEngineering"
+  Contact    = "ruben.martin@tuempresa.com"
+  Purpose    = "EcommerceAnalytics"
+  Backup     = "Required"
+}
+
+# =============================================================================
+# CONFIGURACIÓN DE DESARROLLO
+# =============================================================================
+
+# Habilitar modo debug (solo para troubleshooting)
+enable_debug_mode = false
+
+# Omitir snapshot final (útil para testing, NO usar en producción)
+skip_final_snapshot = false
+
+# Habilitar protección contra eliminación
+enable_deletion_protection = true
+
+/**
+ * =============================================================================
+ * INSTRUCCIONES DE USO - AUTOR: RUBEN MARTIN
+ * =============================================================================
+ * 
+ * 1. CONFIGURACIÓN INICIAL:
+ *    - Copia este archivo como terraform.tfvars
+ *    - Ajusta los valores según tu entorno específico
+ *    - Cambia OBLIGATORIAMENTE la contraseña de Redshift
+ *    - Actualiza el email de notificaciones
+ * 
+ * 2. CONFIGURACIÓN POR ENTORNO:
+ *    - dev: Recursos mínimos, sin alta disponibilidad
+ *    - staging: Configuración intermedia para testing
+ *    - prod: Recursos optimizados, alta disponibilidad
+ * 
+ * 3. SEGURIDAD:
+ *    - Nunca commits contraseñas en git
+ *    - Usa variables de entorno para CI/CD
+ *    - Revisa regularmente los bloques CIDR permitidos
+ * 
+ * 4. OPTIMIZACIÓN DE COSTOS:
+ *    - Las configuraciones por defecto están optimizadas por entorno
+ *    - Ajusta retention periods según tus necesidades de compliance
+ *    - Considera usar Reserved Instances para Redshift en producción
+ * 
+ * 5. MONITOREO:
+ *    - Configura correctamente el email de notificaciones
+ *    - Ajusta umbrales de alarmas según tu carga de trabajo
+ *    - Habilita monitoreo detallado solo cuando sea necesario
+ * 
+ * =============================================================================
+ * 
+ * EJEMPLO DE DESPLIEGUE:
+ * 
+ * # Para desarrollo
+ * terraform plan -var="environment=dev" -var-file="dev.tfvars"
+ * terraform apply -var="environment=dev" -var-file="dev.tfvars"
+ * 
+ * # Para producción
+ * terraform plan -var="environment=prod" -var-file="prod.tfvars"
+ * terraform apply -var="environment=prod" -var-file="prod.tfvars"
+ * 
+ * =============================================================================
+ */ "terraform.tfvars.example"
