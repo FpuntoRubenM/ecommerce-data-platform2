@@ -1,14 +1,14 @@
-# # 🏪 E-commerce Data Platform en AWS
+# # E-commerce Data Platform en AWS
 
 **Autor:** Ruben Martin  
 **Versión:** 2.0.0  
 **Fecha:** 2025-07-16  
 
-## 📋 Descripción del Proyecto
+## Descripción del proyecto
 
 Plataforma de datos de comercio electrónico construida en AWS siguiendo las mejores prácticas del **AWS Well-Architected Framework**. Esta infraestructura permite capturar, procesar y analizar datos de e-commerce en tiempo real utilizando servicios nativos de AWS.
 
-### 🎯 Objetivos
+### Objetivos
 
 - **Captura en tiempo real** de eventos de e-commerce
 - **Procesamiento escalable** de grandes volúmenes de datos
@@ -17,7 +17,7 @@ Plataforma de datos de comercio electrónico construida en AWS siguiendo las mej
 - **Seguridad robusta** con cifrado end-to-end
 - **Monitoreo completo** con alertas proactivas
 
-## 🏗️ Arquitectura
+## 🏗Arquitectura
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -38,7 +38,7 @@ Plataforma de datos de comercio electrónico construida en AWS siguiendo las mej
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### 🔧 Componentes Principales
+### Componentes principales
 
 | Servicio | Propósito | Características |
 |----------|-----------|-----------------|
@@ -50,9 +50,9 @@ Plataforma de datos de comercio electrónico construida en AWS siguiendo las mej
 | **AWS Lambda** | Procesamiento serverless | Enriquecimiento, validación automática |
 | **Amazon CloudWatch** | Monitoreo | Métricas, logs, alertas |
 
-## 🛡️ Pilares del Well-Architected Framework
+## 🛡Pilares del Well-Architected Framework
 
-### 1. **Excelencia Operacional**
+### 1. **Excelencia operacional**
 - ✅ Infraestructura como código con Terraform
 - ✅ Automatización completa del despliegue
 - ✅ Monitoreo proactivo con CloudWatch
@@ -73,14 +73,14 @@ Plataforma de datos de comercio electrónico construida en AWS siguiendo las mej
 - ✅ Auto-scaling basado en demanda
 - ✅ Health checks automatizados
 
-### 4. **Eficiencia de Rendimiento**
+### 4. **Eficiencia de rendimiento**
 - ✅ Servicios nativos optimizados
 - ✅ Caching inteligente
 - ✅ Compresión automática de datos
 - ✅ Particionado eficiente en Redshift
 - ✅ Paralelización de procesamiento
 
-### 5. **Optimización de Costos**
+### 5. **Optimización de costos**
 - ✅ Políticas de lifecycle en S3
 - ✅ Reserved Instances para Redshift
 - ✅ Spot Instances para desarrollo
@@ -93,7 +93,7 @@ Plataforma de datos de comercio electrónico construida en AWS siguiendo las mej
 - ✅ Políticas de retención optimizadas
 - ✅ Servicios serverless cuando es posible
 
-## 🚀 Inicio Rápido
+## Inicio rápido
 
 ### Prerrequisitos
 
@@ -133,9 +133,9 @@ terraform plan -var="environment=dev"
 terraform apply -var="environment=dev"
 ```
 
-## ⚙️ Configuración por Entornos
+## Configuración por entornos
 
-### 🔬 Desarrollo (dev)
+### Desarrollo (dev)
 ```hcl
 environment = "dev"
 kinesis_shard_count = 1
@@ -145,7 +145,7 @@ enable_detailed_monitoring = false
 backup_retention_period = 3
 ```
 
-### 🧪 Staging
+### Staging
 ```hcl
 environment = "staging"
 kinesis_shard_count = 2
@@ -155,7 +155,7 @@ enable_detailed_monitoring = true
 backup_retention_period = 7
 ```
 
-### 🏭 Producción
+### Producción
 ```hcl
 environment = "prod"
 kinesis_shard_count = 4
@@ -167,11 +167,11 @@ backup_retention_period = 30
 enable_deletion_protection = true
 ```
 
-## 📊 Estructura de Datos
+## Estructura de datos
 
-### Eventos de E-commerce Soportados
+### Eventos de e-commerce soportados
 
-#### 🛒 Transacciones
+#### Transacciones
 ```json
 {
   "event_type": "purchase",
@@ -197,7 +197,7 @@ enable_deletion_protection = true
 }
 ```
 
-#### 👤 Eventos de Usuario
+#### Eventos de usuario
 ```json
 {
   "event_type": "page_view",
@@ -211,7 +211,7 @@ enable_deletion_protection = true
 }
 ```
 
-#### 📦 Productos
+#### Productos
 ```json
 {
   "product_id": "prod_111",
@@ -231,9 +231,9 @@ enable_deletion_protection = true
 }
 ```
 
-## 🔍 Monitoreo y Alertas
+## Monitoreo y alertas
 
-### Métricas Clave
+### Métricas clave
 
 | Métrica | Umbral | Acción |
 |---------|--------|--------|
@@ -243,7 +243,7 @@ enable_deletion_protection = true
 | **S3 Storage** | > 1TB | Revisar lifecycle policies |
 | **Lambda Errors** | > 5% | Alertar al equipo |
 
-### 📧 Configuración de Alertas
+### Configuración de alertas
 
 ```bash
 # Configurar email de notificaciones
@@ -254,9 +254,9 @@ aws sns subscribe \
   --notification-endpoint ruben.martin@tuempresa.com
 ```
 
-## 💾 Backup y Recuperación
+## Backup y recuperación
 
-### Estrategia de Backup
+### Estrategia de backup
 
 | Componente | Frecuencia | Retención | Ubicación |
 |------------|------------|-----------|-----------|
@@ -264,7 +264,7 @@ aws sns subscribe \
 | **S3 Data** | Continuo (versionado) | Según lifecycle | Glacier/Deep Archive |
 | **Configuración** | Manual | Permanente | Git repository |
 
-### 🔄 Procedimiento de Recuperación
+### Procedimiento de Recuperación
 
 ```bash
 # Restaurar cluster Redshift
@@ -278,7 +278,7 @@ psql -h redshift-cluster.region.redshift.amazonaws.com \
      -c "SELECT COUNT(*) FROM transactions WHERE date >= '2025-07-15';"
 ```
 
-## 🔐 Seguridad
+## Seguridad
 
 ### Cifrado
 
@@ -286,7 +286,7 @@ psql -h redshift-cluster.region.redshift.amazonaws.com \
 - **En tránsito:** TLS 1.2+
 - **Claves:** Rotación automática anual
 
-### Control de Acceso
+### Control de acceso
 
 ```bash
 # Crear usuario desarrollador
@@ -303,9 +303,9 @@ aws iam create-access-key --user-name developer-juan
 - **VPC Flow Logs:** Monitoreo de tráfico de red
 - **CloudWatch Logs:** Logs de aplicaciones centralizados
 
-## 🔧 Operaciones
+## Operaciones
 
-### Comandos Útiles
+### Comandos útiles
 
 ```bash
 # Ver estado de la infraestructura
@@ -327,7 +327,7 @@ terraform output
 terraform destroy -var="environment=dev" -auto-approve
 ```
 
-### 📈 Escalamiento
+### Escalamiento
 
 #### Kinesis Data Streams
 ```bash
@@ -347,9 +347,9 @@ aws redshift modify-cluster \
   --number-of-nodes 4
 ```
 
-### 🔍 Troubleshooting
+### Troubleshooting
 
-#### Problemas Comunes
+#### Problemas comunes
 
 **1. Kinesis Throttling**
 ```bash
@@ -364,7 +364,7 @@ aws cloudwatch get-metric-statistics \
   --statistics Sum
 ```
 
-**2. Firehose Delivery Errors**
+**2. Firehose delivery errors**
 ```bash
 # Revisar logs de error
 aws logs filter-log-events \
@@ -372,7 +372,7 @@ aws logs filter-log-events \
   --filter-pattern "ERROR"
 ```
 
-**3. Redshift Connection Issues**
+**3. Redshift connection issues**
 ```bash
 # Verificar security group
 aws ec2 describe-security-groups \
@@ -382,11 +382,11 @@ aws ec2 describe-security-groups \
 telnet redshift-cluster.region.redshift.amazonaws.com 5439
 ```
 
-## 📊 Análisis de Datos
+## Análisis de datos
 
-### Consultas SQL de Ejemplo
+### Consultas SQL de ejemplo
 
-#### Análisis de Ventas
+#### Análisis de ventas
 ```sql
 -- Top 10 productos más vendidos
 SELECT 
@@ -401,7 +401,7 @@ ORDER BY revenue DESC
 LIMIT 10;
 ```
 
-#### Análisis de Comportamiento
+#### Análisis de comportamiento
 ```sql
 -- Funnel de conversión por hora
 SELECT 
@@ -419,7 +419,7 @@ GROUP BY hour
 ORDER BY hour;
 ```
 
-#### Segmentación de Clientes
+#### Segmentación de clientes
 ```sql
 -- RFM Analysis
 WITH customer_metrics AS (
@@ -452,9 +452,9 @@ SELECT
 FROM rfm_scores;
 ```
 
-## 🧪 Testing
+## Testing
 
-### Tests de Infraestructura
+### Tests de infraestructura
 
 ```bash
 # Validar configuración Terraform
@@ -471,7 +471,7 @@ tflint
 checkov -f main.tf
 ```
 
-### Tests de Datos
+### Tests de datos
 
 ```python
 # test_data_quality.py - Ruben Martin
@@ -517,7 +517,7 @@ def test_redshift_cluster_health():
     assert cluster['Encrypted'] == True
 ```
 
-### Tests de Pipeline
+### Tests de pipeline
 
 ```python
 # test_data_pipeline.py - Ruben Martin
@@ -555,9 +555,9 @@ def test_end_to_end_pipeline():
     assert response['ResponseMetadata']['HTTPStatusCode'] == 200
 ```
 
-## 📱 APIs y SDKs
+## APIs y SDKs
 
-### API de Ingesta
+### API de ingesta
 
 ```python
 # ingest_api.py - Ruben Martin
@@ -709,9 +709,9 @@ const analytics = new EcommerceAnalytics({
 analytics.trackPageView({ url: window.location.href });
 ```
 
-## 🚀 CI/CD Pipeline
+## CI/CD Pipeline
 
-### GitHub Actions Workflow
+### GitHub actions workflow
 
 ```yaml
 # .github/workflows/deploy.yml - Ruben Martin
@@ -838,7 +838,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 ```
 
-## 📋 Checklist de Despliegue
+## Checklist de despliegue
 
 ### Pre-despliegue
 - [ ] ✅ Credenciales AWS configuradas
@@ -863,7 +863,7 @@ jobs:
 
 ## 🤝 Contribuciones
 
-### Guía para Desarrolladores
+### Guía para desarrolladores
 
 1. **Fork del repositorio**
 2. **Crear rama feature:** `git checkout -b feature/nueva-funcionalidad`
@@ -871,14 +871,14 @@ jobs:
 4. **Push a la rama:** `git push origin feature/nueva-funcionalidad`
 5. **Crear Pull Request**
 
-### Estándares de Código
+### Estándares de código
 
 - **Terraform:** Seguir [estándares de HashiCorp](https://www.terraform.io/docs/language/syntax/style.html)
 - **Python:** PEP 8 compliance
 - **SQL:** Mayúsculas para keywords, snake_case para nombres
 - **Documentación:** Comentarios en español, autor claramente identificado
 
-## 📞 Soporte
+## Soporte
 
 ### Contacto
 
@@ -886,7 +886,7 @@ jobs:
 **📧 Email:** fpuntoruben@proton.me 
 **🔗 LinkedIn:** [Ruben Martin](https://www.linkedin.com/in/rubenmartindelacruz)  
 
-### Issues Conocidos
+### Issues conocidos
 
 | Issue | Descripción | Workaround | Status |
 |-------|-------------|------------|--------|
@@ -906,11 +906,11 @@ A: Actualiza las variables `redshift_node_type` y `redshift_number_of_nodes` y a
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
 
-## 🙏 Agradecimientos
+## Agradecimientos
 
 - **AWS Well-Architected Framework** por las mejores prácticas
 - **Terraform Community** por los módulos y ejemplos
@@ -918,5 +918,5 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 ---
 
-**📅 Última actualización:** 2025-07-16  
-**✨ Creado con ❤️ por Ruben Martin** "README.md"
+**Última actualización:** 2025-07-21  
+**Creado por Ruben Martin** "README.md"
