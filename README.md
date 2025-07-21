@@ -883,8 +883,8 @@ jobs:
 ### Contacto
 
 **👨‍💻 Autor:** Ruben Martin  
-**📧 Email:** ruben.martin@tuempresa.com  
-**🔗 LinkedIn:** [Ruben Martin](https://linkedin.com/in/ruben-martin)  
+**📧 Email:** fpuntoruben@proton.me 
+**🔗 LinkedIn:** [Ruben Martin](www.linkedin.com/in/rubenmartindelacruz)  
 
 ### Issues Conocidos
 
