@@ -884,7 +884,7 @@ jobs:
 
 **👨‍💻 Autor:** Ruben Martin  
 **📧 Email:** fpuntoruben@proton.me 
-**🔗 LinkedIn:** [Ruben Martin](www.linkedin.com/in/rubenmartindelacruz)  
+**🔗 LinkedIn:** [Ruben Martin](https://www.linkedin.com/in/rubenmartindelacruz)  
 
 ### Issues Conocidos
 
